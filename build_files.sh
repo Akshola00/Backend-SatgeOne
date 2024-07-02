@@ -17,7 +17,11 @@ pip install -r requirements.txt
 python3.9 manage.py collectstatic --noinput
 
 # Create the output directory if it doesn't exist
-mkdir -p staticfiles_build
+mkdir -p staticfiles_build/static
 
-# Move the collected static files to the output directory
-mv static/* staticfiles_build/
+# Move the collected static files to the output directory if they exist
+if [ -d "static" ]; then
+    mv static/* staticfiles_build/static/
+else
+    echo "No static files found in the 'static' directory."
+fi
